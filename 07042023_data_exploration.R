@@ -110,7 +110,7 @@ butterfly %>%
 # males appear to have a strong correlation between forewing_length and jun_mean
 # females appear to have a weaker correlation between forewing_length and jun_mean
 # females forewing_length is larger than males
-# a model must be created to test this observation
+# a model must be created to test this observation.
 
 # temperature and year has a weak positive correlation
 # rainfall and year has a weak negative correlation
