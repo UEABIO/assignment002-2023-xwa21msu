@@ -13,9 +13,8 @@ source("scripts/04042023_data_import.R") # import tidied butterfly data and insi
 
 # 📦 PACKAGES ----
 
-library(GGally)
-library(emmeans)
-library(performance)
+library(emmeans) # produce mean value estimates of categorical variables
+library(performance) # produce visual checks of model assumptions
 
 #__________________________----
 
@@ -42,6 +41,10 @@ check_model(butterfly_ls1, check = "qq") # check residual normality: non-normal 
 MASS::boxcox(butterfly_ls1) # check if a transformation would improve model fit
 
 # boxcox output between 0 and 0.5 recommends log transformation of the data
+
+#__________________________----
+
+# 🕵 MODEL REFINING ----
 
 butterfly_ls1_log <- lm(log(forewing_length) ~ jun_mean + 
                            year +
@@ -72,10 +75,12 @@ check_model(butterfly_ls2, check = "qq") # check residual normality: no change
 
 # butterfly_ls2 preferred.
 
+broom::tidy(butterfly_ls2, conf.int=T, conf.level=0.95) # add confidence intervals to butterfly_ls2 model output
+
 #__________________________----
 
 # 📬 POSTHOC ANALYSES ----
 
-emmeans::emmeans(butterfly_ls2, specs = pairwise ~ jun_mean + sex)
+emmeans::emmeans(butterfly_ls2, specs = pairwise ~ sex + jun_mean)
 
 
