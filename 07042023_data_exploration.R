@@ -64,15 +64,32 @@ butterfly_females %>%
 
 butterfly %>% 
   ggplot(aes(x=year, y=jun_mean))+
-  geom_point()
+  geom_point() # scatter plot of year and jun_mean
 
 # doesn't appear that there is a relationship
 # test this with Pearson's R
 
 butterfly %>% 
-  cor_test(year, jun_mean) 
+  cor_test(year, jun_mean) # generate Pearson's R test
 
 # positive but very weak relationship: cor = 0.19
+
+# does forewing_length therefore increase with years passed?
+
+butterfly %>% 
+  ggplot(aes(x=year, y=forewing_length))+
+  geom_point(aes(colour = sex)) + # scatter plot of year and forewing_length separated by sex
+  geom_smooth(method="lm",
+              se=FALSE,
+              aes(colour=sex)) # add linear model line for each sex
+
+# appears male forewing_length increases with year and female forewing_length decreases with year
+# test female forewing_length vs year correlation with Pearson's R
+
+butterfly_females %>% 
+  cor_test(year, forewing_length) # generate Pearson's R test
+
+# negative but weak relationship: cor = -0.016
 
 # does rainfall decrease average june temperatures?
 
@@ -107,13 +124,12 @@ butterfly %>%
 # 📝 SUMMARY ----
 
 # sex interacts with forewing_length and jun_mean
-# males appear to have a strong correlation between forewing_length and jun_mean
-# females appear to have a weaker correlation between forewing_length and jun_mean
-# females forewing_length is larger than males
+# males appear to have a strong correlation between forewing_length, jun_mean and year
+# females appear to have a weaker correlation between forewing_length, jun_mean and year
 # a model must be created to test this observation.
+# females forewing_length is larger than males
 
-# temperature and year has a weak positive correlation
+# mean june temperature (jun_mean) and year has a weak positive correlation
 # rainfall and year has a weak negative correlation
-# rainfall doesn't have a relationship with temperature
-
+# rainfall doesn't have a relationship with mean june temperature (jun_mean)
 
