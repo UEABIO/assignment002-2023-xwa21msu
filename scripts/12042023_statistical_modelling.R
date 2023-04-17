@@ -18,17 +18,20 @@ library(performance) # produce visual checks of model assumptions
 
 #__________________________----
 
+# 🕵 HYPOTHESES ONE ----
+# increases in jun_mean will cause an increase in forewing_length exacerbated by females due to sexual dimorphism.
+
+
 # 🗿 MODEL DATA ----
 
 butterfly_ls1 <- lm(forewing_length ~ jun_mean + 
                       year +
                       sex,
-                    data = butterfly) # make a two-way anova of forewing_length as a response of year, jun_mean, sex
+                    data = butterfly) # make an ANOVA of forewing_length as a response of year, jun_mean, sex
 
 butterfly_ls1 %>% 
   broom::tidy() # summarise linear model
 
-#__________________________----
 
 # 🔍 MODEL CHECKING ----
 
@@ -42,9 +45,8 @@ MASS::boxcox(butterfly_ls1) # check if a transformation would improve model fit
 
 # boxcox output between 0 and 0.5 recommends log transformation of the data
 
-#__________________________----
 
-# 🕵 MODEL REFINING ----
+# 💎 MODEL REFINING ----
 
 butterfly_ls1_log <- lm(log(forewing_length) ~ jun_mean + 
                            year +
@@ -56,6 +58,8 @@ check_model(butterfly_ls1_log, check = "homogeneity") # check homogeneity: not i
 check_model(butterfly_ls1_log, check = "outliers") # check outliers: no change
 check_model(butterfly_ls1_log, check = "vif") # check collinearity: no change
 check_model(butterfly_ls1_log, check = "qq") # check residual normality: no change
+
+# butterfly_ls1 preferred.
 
 drop1(butterfly_ls1, test = "F") # drop terms to improve model fit
 
@@ -77,10 +81,53 @@ check_model(butterfly_ls2, check = "qq") # check residual normality: no change
 
 broom::tidy(butterfly_ls2, conf.int=T, conf.level=0.95) # add confidence intervals to butterfly_ls2 model output
 
-#__________________________----
 
 # 📬 POSTHOC ANALYSES ----
 
 emmeans::emmeans(butterfly_ls2, specs = pairwise ~ sex + jun_mean)
 
+#__________________________----
 
+# 🕵 HYPOTHESIS TWO ----
+# jun_mean temperatures will increase between 1880 and 1973.
+
+# 🗿 MODEL DATA ----
+
+butterfly_ls3 <- lm(jun_mean ~ year, data = butterfly) # make a regression linear model on jun_mean as a response of increasing year
+
+butterfly_ls3 %>% 
+  broom::tidy() # summarise linear model
+
+
+# 🔍 MODEL CHECKING ----
+
+check_model(butterfly_ls3, check = "linearity") # check linearity: reference line wavy
+check_model(butterfly_ls3, check = "homogeneity") # check homogeneity: reference line wavy
+check_model(butterfly_ls3, check = "outliers") # check outliers: no outliers
+check_model(butterfly_ls3, check = "qq") # check residual normality: poor fitting in low and high value ranges
+
+MASS::boxcox(butterfly_ls3) # check if a transformation would improve model fit
+
+# boxcox output between -1 and 0 recommends 1/sqrt() transformation of the data
+
+
+# 💎 MODEL REFINING ----
+
+butterfly_sqrt <- lm(1/sqrt(jun_mean) ~ year, data = butterfly) # make a new liner model with the 1/sqrt() transformation applied to jun_mean
+
+check_model(butterfly_sqrt, check = "linearity") # check linearity: not improved since 1/sqrt() transformation
+check_model(butterfly_sqrt, check = "homogeneity") # check homogeneity: not improved since 1/sqrt() transformation
+check_model(butterfly_sqrt, check = "outliers") # check outliers: no change
+check_model(butterfly_sqrt, check = "qq") # check residual normality: no change
+
+# butterfly_ls3 preferred.
+
+broom::tidy(butterfly_ls3, conf.int=T, conf.level=0.95)
+
+year_mean <- butterfly %>% 
+  summarise(mean_year=mean(year))
+
+butterfly %>% 
+  mutate(centered_year = year-pull(year_mean)) %>% 
+  lm(jun_mean ~ centered_year, data = .) %>% 
+  broom::tidy()
