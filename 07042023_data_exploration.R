@@ -13,7 +13,7 @@ source("scripts/04042023_data_import.R") # import tidied butterfly data and insi
 
 # 📦 PACKAGES ----
 
-library(rstatix)
+library(rstatix) # to generate Pearsons' R
 
 #__________________________----
 
