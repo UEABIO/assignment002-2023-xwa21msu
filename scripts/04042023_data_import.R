@@ -126,6 +126,11 @@ butterfly %>%
   geom_histogram(aes(x=jun_mean),
                  bins=10) # check variation with frequency distribution
 
+butterfly %>% 
+  ggplot()+
+  geom_histogram(aes(x=year),
+                 bins=10) # check variation with frequency distribution
+
 butterfly_filtered %>% # using filtered dataset to exclude impossible values
   ggplot()+
   geom_histogram(aes(x=rain_jun),
