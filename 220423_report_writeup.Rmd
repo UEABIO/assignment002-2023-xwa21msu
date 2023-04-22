@@ -1,0 +1,135 @@
+---
+title: "Male _Hesperia Comma_ affected more by warmer temperatures than female conspecifics despite female-biased size sexual dimorphism."
+author: "Lucy Marsden"
+date: "2023-04-22"
+output: pdf_document
+bibliography: references.bib
+---
+
+```{r setup, include= FALSE}
+
+# ⚙️ GLOBAL KNITR OPTIONS ----
+
+knitr::opts_chunk$set(echo = FALSE, eval = TRUE)
+
+# 📦 PACKAGES ----
+
+library(tidyverse)
+
+# 📜 SOURCE CODE ----
+
+# sourcing code with tidied dataset
+
+source("scripts/04042023_data_import.R")
+
+# sourcing code to produce data visuals
+
+source("scripts/12042023_data_visual.R")
+
+# source code to produce model summary tables
+
+source("scripts/12042023_statistical_modelling.R")
+
+```
+
+### Introduction
+
+It is widely recognized that climate change is occurring; between 1850 and 1900, global temperatures increased by 1.1°C and have accelerated since 1975 with near-term predictions at 1.5°C growth (NASA Earth Observatory, n.d; IPCC, 2023). Its effects are expected to be exacerbated with every degree increase (IPCC, 2023); worryingly, the effects of climate change on taxa are already wide reaching and mixed [@fenberg2016]. Warming has been documented to affect distribution and phenology of many species [@davies2006]. @parmesan2003 saw that 80% of 1700 plant, insect, amphibian and bird species have migrated and 87% experienced earlier phenological events. Climate-mediated body size declines have been demonstrated in taxa [@gardner2011]. It is predicted that the current climate will match that of the Palaeocene--Eocene Thermal Maximum (PETM) era of global warming. PETM-era fossils show 50-75% invertebrate body size declines and have been used to anticipate ecological changes [@smith2009]. Body size is intrinsically linked to ecology through the temperature-size rule, especially in insect ectotherms [@na2021]; [@stanbrook2021]; [@földesi2020] and continued shrinkage of body size could lead to trophic collapse [@sheridan2011]. Uncovering the effects of climate change on insects is therefore a priority for conservationists but is limited by the lack of knowledge of many insect groups, except Lepidoptera [@hill2021]. Laboratory-based research into butterfly species [@büyükyilmaz2022] has concluded that greater temperatures can result in smaller [@komata2017], larger [@fenberg2016] or unchanged [@büyükyilmaz2022] body sizes depending on voltinism, sex and sexual dimorphism [@fenberg2016]. Univoltine species grow larger [@horne2015] and female-biased size difference is prevalent in insects [@budecevic2021]. To better understand the ecological effects of climate change in Britain, museum specimens of the native univoltine butterfly, *Hesperia Comma* were examined. I hypothesized that average June temperatures between 1880 and early 1970 would increase in conjunction with global trends and as a result would cause an increase in *Hesperia Comma* body size that was exacerbated in females due to sexual dimorphism. 
+
+### Analyses
+
+Steady increases in global temperatures have been measured (IPCC, 2023), but despite continuous studies, its effect on its ecology is still being uncovered. The sensitive interactions between *Hesperia Comma* and abiotic factors were used to discover body size changes resulting from increasing global temperatures. Three hypotheses were studied: do average June temperatures increase with years passed? Does forewing length increase in conjunction with this? And is this affected by sex? The dataset included 58 (30 female and 28 male) *Hesperia Comma* museum specimens from the month of June between 1880 and 1973. Generally, one male and one female specimen is recorded for each year, but this is not always the case; additionally, not every year between 1880 and 1973 has data. The mean June temperature and rainfall for each year is reported, and for each specimen, the forewing length is recorded, that is, the distance measured between the site of wing attachment and the tip of the forewing [@fenberg2016]. Forewing length was used to represent body size. To analyse hypothesis one, the correlation between continuous variable, mean June temperature and discrete variable, year was tested using Pearsons R. To analyse hypothesis two, the overall change in forewing length as a response of continuous predictor, mean June temperature; discrete predictor, year and categorical predictor, sex was determined using an ordinary least squares regression model. A maximum likelihood curve of the model suggested a log transformation to improve model fitness; but when applied, did not improve linearity, homogeneity or residual normality, which breaks down at high values. The best fitting model excluded 'year'. For the third hypotheses, changes in forewing length as a response of continuous predictor, mean June temperature was modelled for male and female butterflies individually using ordinary least square regression models. The best fitting model for males excluded one influential outlier; a maximum likelihood curve of the model suggested no transformations would improve model fitness further. All analyses and data cleaning were completed in R ver 4.2.3 using the tidyverse packages [@tidyverse]; model fitness was checked using the performance [@performance] and MASS [@MASS] packages. The package, broom produced model summary tables [@broom] and emmeans produced mean estimates for categorical variables [@emmeans]. Pearson's R correlations were generated using the rstatix package [@rstatix]. 
+
+### Results & Discussion
+
+**Average Temperature Trends** 
+
+Global trends suggest that Earth has warmed by 1.1°C since 1850 (NASA Earth Observatory, n.d); therefore, I hypothesised that average temperatures in Britain would also increase. This relationship was determined using Pearson's R between average June temperature and year. There was a very small positive relationship (r = 0.18), but this was not significantly different to no effect (t~56~ = 1.45, P = 0.16). This result is likely due to the very gradual and slight increase in global temperature and is limited by one month of the year. Nevertheless, there is much evidence for global temperature rises (IPCC, 2023; NOAA, 2023). 
+
+**Changes in Body Size in *Hesperia Comma***.
+
+Warmer average June temperatures were predicted to cause body size growth in *Hesperia Comma*. I hypothesised this because previous studies on this species have shown also that pattern [@fenberg2016], however, there is still conflicting evidence about the effect of temperature on Lepidoptera. To clarify this, I compared the relationship between body size and mean June temperature of *Hesperia Comma* from 1880 to 1973 using an ordinary least squares model with forewing length as a response of continuous predictors, mean June temperature and year as well as categorical predictor, sex.  
+
+There was some effect of passing years on overall forewing length, but this was not significantly different from no effect (F~1,\ 55~ = 0.085, P = 0.77), so it was removed from the full model. Contrastingly, there was a larger, significant effect of mean June temperature on overall forewing length (Linear model: F~1,\ 56~ = 13.75, P = 0.0005), where every 1°C increase in average June temperature resulted in a 0.204mm increase in forewing length. Interestingly, most research into the temperature-size rule reports body size reductions as temperature increases [@sheridan2011]; studies into Lepidoptera also report this pattern [@büyükyilmaz2022]. However, one study reported wing reduction and growth in multiple Lepidoptera species, with declines concentrated in Mokpo [@na2021]. It appears that many factors, such as species and location, influence this relationship, and more studies must be conducted to fully understand the different responses to temperature increases.  
+
+Despite the significant effect of rising temperature on *Hesperia Comma* body size, categorical predictor, sex had the largest effect on forewing length (F~1,\ 55~ = 127, P \< 0.001) due to sexual dimorphism. Post hoc analyses confirmed this; and determined that on average, female *Hesperia Comma* butterflies have larger forewings (14.3mm [14.1 - 14.5]) than male conspecifics (13mm [12.8 - 13.1]) (Figure 1) when mean June temperature is fixed and that this is significant (t~55~ = 11.28, P \< 0.001). @fenberg2016 mirrored this result.  
+
+```{r plot 1, eval = TRUE, include = TRUE}
+
+# 📊 DATA VISUAL 1
+
+plot_8
+
+```
+
+**Figure 1.** *Hesperia Comma* exhibits female-biased size sexual dimorphism. Ordinary least square regression models (main effects of mean June temperature and forewing length) of male and female specimens showed significant differences in forewing length between the sexes. On average, female forewing length is 14.3mm [14.1 - 14.5] and male forewing length is 13mm [12.8 - 13.1]. The middle line, box and whiskers represent the median, interquartile range and range respectively. Circles are individual data points; colours represent the sex of the specimen(s).
+
+**Male and Female *Hesperia Comma* Respond Differently.** 
+
+I hypothesised that an increase in body size would be exacerbated in female *Hesperia Comma* due to female-biased size sexual dimorphism. To test this, I compared the response of body size on average June temperatures between male and female *Hesperia Comma* specimens between 1880 and 1973. For each sex, I used an ordinary least square regression model with forewing length as a response of predictor, average June temperature. There was a clear positive relationship between male butterfly body size and temperature (Figure 2) (0.37mm [0.23 - 0.5] for every 1°C increase in average June temperature); and this was significant (F~1,25~ = 32, P \< 0.001). Contrary to prediction, warmer June temperatures caused a much smaller increase in female butterfly body size (Figure 2) (0.12mm [-0.05 - 0.3] for every 1°C increase in average June temperature); but this was not significantly different from no effect (F~1,\ 28~ = 2.29, P = 0.014). It appears that female-biased sexual dimorphism becomes weaker at higher temperatures, but the mechanism for this is unknown. This result was reflected by @fenberg2016; but the opposite was shown in the Artic spider, Pardosa glacialis, where only females grew with increasing temperature, and size sexual dimorphism became more apparent [@høye2009]. @wilson2019 found that for some species of butterfly, warmer temperatures could cause increases and decreases in males dependent on larval stage, but females showed no response or a decrease in body size only during the pupal stage. Evidently, female butterflies respond differently and inconsistently compared to male butterflies. More research must be conducted to identify other factors that may be affecting female butterflies and not males.  
+
+```{r plot 2, eval = TRUE, include = TRUE}
+
+# 📊 DATA VISUAL 2
+
+plot_7
+
+```
+
+**Figure 2.** *Hesperia Comma* forewing length increases with mean June temperature, and this is exaggerated in males. Lines are linear regression model slopes (main effects of forewing length, mean June temperature) for males and females individually with 95% confidence intervals. For every 1°C, male forewing length increases by 0.37mm [0.23 - 0.5], and by 0.12mm [-0.05 - 0.3] for females. Circles represent each datapoint, and colours represent the sex of each *Hesperia Comma* specimen.  
+
+### Conclusion
+
+Increasing average temperature significantly effects overall wing sizes in *Hesperia Comma*, but despite clear female-biased sexual dimorphism, male wing sizes were affected significantly more by warmer June temperatures than females, whose small positive response was insignificant. It was concluded that size sexual dimorphism is dynamic based on exogenous factors, namely temperature. Despite an insignificant increase in temperature, *Hesperia Comma* responded; reiterating the importance of ectotherms to signal the effect of climate change on ecology [@na2021];[@davies2006]. A greater understanding of temperature on *Hesperia Comma* has been established which can help conservation, especially because this species was listed as \"rare\" in 1987 by IUCN criteria (Lawson et al. 2013). Such evidence can help policymakers understand the risk of climate change to ecology. To wholly understand the effect of climate change on butterflies, species; their location and distribution and climate change-related habitat shifts must also be tested. 
+
+### References
+
+Budečević, S., Savković, U., Đorđević, M. Vlajnić, L., and Stojković, B. (2021) \' Sexual Dimorphism and Morphological Modularity in Acanthoscelides obtectus (Say, 1831) (Coleoptera: Chrysomelidae): A Geometric Morphometric Approach\'. *Insects*. 12(4), p. 350. 
+
+Büyükyilmaz, E. and Tseng, M. (2022) \'Developmental temperature predicts body size, flight, and pollen load in a widespread butterfly\'. *Ecological Entomology*. 47(5), pp. 872-882. 
+
+Davies, Z., Wilson, R., Coles, S. and Thomas, C. (2006) \'Changing habitat associations of a thermally constrained species, the silver-spotted skipper butterfly, in response to climate warming\'. *Journal of Animal Ecology*. 75(1), pp. 247-256. 
+
+Fenberg, P., Self, A., Stewart, J., Wilson, R. and Brooks, S. (2016) \'Exploring the universal ecological responses to climate change in a univoltine butterfly\'. *Journal of Animal Ecology.* 85(3), pp. 739-748. 
+
+Földesi, R., Howlett, B., Grass, I. and Batáry, P. (2020) \'Larger pollinators deposit more pollen on stigmas across multiple plant species---A meta-analysis'. *Journal of Applied Ecology*. 58(4), pp. 699-707. 
+
+Gardner, J., Peters, A., Kearney, M., Joseph, L., Heinsohn, R. (2011) \'Declining body size: a third universal response to warming?\'. *Trends in Ecology and Evolution.* 26(6), pp. 285-291. 
+
+Hill, G., Kawahara, A., Daniels, J., Bateman, C. and Scheffers, B. (2021) \'Climate change effects on animal ecology: butterflies and moths as a case study\'. *Biological Reviews*. 96(5), pp. 2113-2126. 
+
+Horne, C., Hirst, A., and Atkinson, D. (2015) \'Temperature-size responses match latitudinal-size clines in arthropods, revealing critical differences between aquatic and terrestrial species\'. *Ecology Letters*. 18(4), pp. 327-335. 
+
+Høye, T., Hammel, J., Fuchs, T. and Toft, S. (2009) \'Climate change and sexual size dimorphism in an Arctic spider\'. *Biol Lett.* 5(4), pp. 542--544. 
+
+Intergovernmental Panel on Climate Change (IPCC) (2023). *AR6 Synthesis Report: Climate Change 2023.* (Accessed: 22nd April 2023). 
+
+Kassambara, A. (2021). *rstatix: Pipe-Friendly Framework for Basic Statistical Tests.* Available at:  <https://rpkgs.datanovia.com/rstatix/> (Accessed: 22nd April 2023) 
+
+Komata, S. and Sota, T. (2017) \'Seasonal polyphenism in body size and juvenile development of the swallowtail butterfly Papilio xuthus (Lepidoptera: Papilionidae)\'. *European Journal Of Entomology European Journal Of Entomology.* 114, pp. 365-371. 
+
+Lawson, C., Bennie, J., Thomas, C., Hodgson, J., Bernhard, T., Budd, P. et al. (2013) The status and conservation of the silver-spotted skipper Hesperia comma in South-East England 2000-2009. University of Exeter, Exeter, UK. 
+
+Lenth, R. (2022) *emmeans: Estimated Marginal Means, aka Least-Squares Means*. Available at: <https://github.com/rvlenth/emmeans> (Accessed: 22nd April 2023). 
+
+Lüdecke, D., Ben-Shachar, M., Patil, I., Waggoner, P., Makowski, P. (2021) \'Performance: An R Package for Assessment, Comparison and Testing of Statistical Models\'. *Journal of Open Source Software*, 6(60), [no pagination]. 
+
+Na, S., Lee, E., Kim, H., Choi, S. and Yi, H. (2021) \'The relationship of mean temperature and 9 collected butterfly species\' wingspan as the response of global warming\'. *Journal of Ecology and Environment*. 45, article no: 21, [no pagination]. 
+
+NASA Earth Observatory (n.d). *World of Change: Global Temperatures*. Available at: <https://earthobservatory.nasa.gov/world-of-change/global-temperatures> (Accessed: 22nd April 2023).  
+
+National Centers for Environmental Information (NOAA) (2023). *Annual 2022 Global Climate Report.* Available at: <https://www.ncei.noaa.gov/access/monitoring/monthly-report/global/202213> (Accessed: 22nd April 2023). 
+
+Parmesan, C. and Yohe, G. (2003) \'A globally coherent fingerprint of climate change impacts across natural systems\'. *Nature.* 421, pp. 37--42. 
+
+Robinson, D., Hayes, A. and Couch, S. (2022). *broom: Convert Statistical Objects into Tidy Tibbles*. Available at: <https://broom.tidymodels.org/>, <https://github.com/tidymodels/broom> (Accessed: 22nd April 2023). 
+
+Smith, J., Hasiotis, S., Kraus, M. and Woody, D. (2009) \'Transient dwarfism of soil fauna during the Paleocene--Eocene Thermal Maximum\', *Proceedings of the National Academy of Sciences*. 106(42), pp. 17655-17660. 
+
+Sheridan, J., and Bickford, D. (2011) \'Shrinking body size as an ecological response to climate change\'. *Nature Climate Change*. 1, pp. 401--406. 
+
+Stanbrook, R., Harris, E., Jones, M., Wheater, C. (2021) \'The Effect of Dung Beetle Size on Soil Nutrient Mobilization in an Afrotropical Forest\', *Insects*. 12(2), p. 141. 
+
+Wickham, H., Averick, M., Bryan, J. and Chang, W. et al. (2019) \'Welcome to the tidyverse\'. *Journal of Open Source Software*. 4(43), [no pagination]. 
+
+Wilson, R., Brooks, S. and Fenberg, P. (2019) \'The influence of ecological and life history factors on ectothermic temperature--size responses: Analysis of three Lycaenidae butterflies (Lepidoptera)\'. *Ecology and Evolution*. 9(18), pp. 10305-10316. 
