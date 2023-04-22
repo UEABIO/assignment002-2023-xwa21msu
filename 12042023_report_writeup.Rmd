@@ -1,0 +1,44 @@
+---
+title: "Male Hesperia Comma affected more by warmer temperatures than female conspecifics despite female-biased size sexual dimorphism."
+author: "Lucy Marsden"
+date: "2023-04-13"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+
+# ⚙️ GLOBAL KNITR OPTIONS ----
+
+knitr::opts_chunk$set(echo = FALSE, eval = TRUE, include = FALSE)
+
+# 📦 PACKAGES ----
+
+library(tidyverse)
+```
+
+```{r, include=FALSE}
+
+# 📜 SOURCE CODE ----
+
+# sourcing code to produce data visuals
+
+source("scripts/120423_data_visual.R")
+
+# sourcing code to produce model summary tables
+
+source("scripts/120423_statistical_modelling.R")
+
+```
+
+Introduction
+
+
+Analyses
+
+Results + Discussion
+
+
+
+Conclusion
+
+References

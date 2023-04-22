@@ -74,8 +74,6 @@ butterfly_ls2 %>%
 
 drop1(butterfly_ls2, test = "F") # check model fit again
 
-summary(butterfly_ls2) # summarise linear model to identify residual degrees of freedom
-
 check_model(butterfly_ls2, check = "linearity") # check linearity: not improved since removal of 'year'
 check_model(butterfly_ls2, check = "homogeneity") # check homogeneity: not improved since removal of 'year'
 check_model(butterfly_ls2, check = "outliers") # check outliers: no change
@@ -85,6 +83,8 @@ check_model(butterfly_ls2, check = "qq") # check residual normality: no change
 # butterfly_ls2 preferred.
 
 broom::tidy(butterfly_ls2, conf.int=T, conf.level=0.95) # add confidence intervals to butterfly_ls2 model output
+
+summary(butterfly_ls2) # summarise linear model to identify residual degrees of freedom
 
 #__________________________
 

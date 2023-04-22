@@ -29,19 +29,23 @@ plot_7 <- butterfly %>%
         panel.grid.minor.x = element_blank(),
         panel.grid.minor.y = element_blank()) # produce regression plot of forewing length and jun_mean for each sex
 
+plot_7
+
 colorBlindness::cvdPlot()
 
 plot_8 <- butterfly %>%
   ggplot(aes(x = sex, y = forewing_length)) +
-  geom_boxplot(aes(fill = sex), alpha = 0.1) +
+  geom_boxplot(aes(fill = sex), alpha = 0.1, width = 0.5) +
   geom_point(aes(colour = sex, fill = sex), alpha = 0.5, position = position_jitter(width = 0.2)) +
   labs(x = "",
        y = "Forewing Length (mm)") +
   theme_minimal() +
-  theme(axis.line = element_line(colour = "grey")) +
+  theme(axis.line = element_line(colour = "grey"), legend.position = "none") +
   theme(panel.grid.major.x = element_blank(),
         panel.grid.major.y = element_blank(),
         panel.grid.minor.x = element_blank(),
         panel.grid.minor.y = element_blank()) # create boxplot of male and female size difference
+
+plot_8
 
 colorBlindness::cvdPlot()
