@@ -22,13 +22,13 @@ library(tidyverse)
 
 source("scripts/04042023_data_import.R")
 
-# sourcing code to produce data visuals
-
-source("scripts/12042023_data_visual.R")
-
 # source code to produce model summary tables
 
 source("scripts/12042023_statistical_modelling.R")
+
+# sourcing code to produce data visuals
+
+source("scripts/12042023_data_visual.R")
 
 ```
 
@@ -68,7 +68,7 @@ plot_8
 
 I hypothesised that an increase in body size would be exacerbated in female *Hesperia Comma* due to female-biased size sexual dimorphism. To test this, I compared the response of body size on average June temperatures between male and female *Hesperia Comma* specimens between 1880 and 1973. For each sex, I used an ordinary least square regression model with forewing length as a response of predictor, average June temperature. There was a clear positive relationship between male butterfly body size and temperature (Figure 2) (0.37mm [0.23 - 0.5] for every 1°C increase in average June temperature); and this was significant (F~1,25~ = 32, P \< 0.001). Contrary to prediction, warmer June temperatures caused a much smaller increase in female butterfly body size (Figure 2) (0.12mm [-0.05 - 0.3] for every 1°C increase in average June temperature); but this was not significantly different from no effect (F~1,\ 28~ = 2.29, P = 0.014). It appears that female-biased sexual dimorphism becomes weaker at higher temperatures, but the mechanism for this is unknown. This result was reflected by @fenberg2016; but the opposite was shown in the Artic spider, Pardosa glacialis, where only females grew with increasing temperature, and size sexual dimorphism became more apparent [@høye2009]. @wilson2019 found that for some species of butterfly, warmer temperatures could cause increases and decreases in males dependent on larval stage, but females showed no response or a decrease in body size only during the pupal stage. Evidently, female butterflies respond differently and inconsistently compared to male butterflies. More research must be conducted to identify other factors that may be affecting female butterflies and not males.  
 
-```{r plot 2, eval = TRUE, include = TRUE}
+```{r plot 2, eval = TRUE, message = FALSE, include = TRUE}
 
 # 📊 DATA VISUAL 2
 
